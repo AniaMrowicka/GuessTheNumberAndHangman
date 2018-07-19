@@ -1,4 +1,4 @@
-package com.game;
+package pl.com.Game;
 
 interface Playable {
     void start();

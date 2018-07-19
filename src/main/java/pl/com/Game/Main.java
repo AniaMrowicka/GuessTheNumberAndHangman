@@ -1,4 +1,4 @@
-package com.game;
+package pl.com.Game;
 
 class Main {
     public static void main(String[] args) {
