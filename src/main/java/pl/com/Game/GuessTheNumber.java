@@ -1,4 +1,4 @@
-package com.game;
+package pl.com.Game;
 
 import java.util.Random;
 import java.util.Scanner;

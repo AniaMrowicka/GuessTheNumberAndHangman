@@ -1,4 +1,8 @@
-package com.game;
+package pl.com.Game;
+
+import entities.Level;
+import pojo_entity.HibernateSender;
+import pojo_entity.WordsEntityDao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,20 +12,16 @@ import java.util.*;
 public class HangMan implements Playable {
     private final Scanner sc = new Scanner(System.in);
     private int triesCount;
-    private String path;
+    private String choosenLevel;
+    private String word="";
+    public HibernateSender hibernateSender = new HibernateSender();
+
 
     @Override
     public void start() {
         chooseLevel();
         game();
         whatIsNext();
-    }
-
-    private String getWord() {
-        URL url = getClass().getResource(path);
-        List<String> wordList = reader(url.getPath());
-        Random random = new Random();
-        return wordList.get(random.nextInt(wordList.size() - 1));
     }
 
     private String[] wordToArray(String word) {
@@ -33,7 +33,6 @@ public class HangMan implements Playable {
     }
 
     private void game() {
-        String word = getWord();
         String[] wordInTheArray = wordToArray(word);
         String[] hiddenWord = getHiddenWord(word);
         boolean letterFound;
@@ -105,15 +104,21 @@ public class HangMan implements Playable {
         }
         switch (level) {
             case "1":
-                path = "WORDS1.txt";
+                choosenLevel = "easy";
+                hibernateSender.readFromHangman(choosenLevel);
+                word= hibernateSender.getWord();
                 triesCount = 4;
                 break;
             case "2":
-                path = "WORDS2.txt";
+                choosenLevel = "medium";
+                hibernateSender.readFromHangman(choosenLevel);
+                word=hibernateSender.getWord();
                 triesCount = 6;
                 break;
             case "3":
-                path = "WORDS3.txt";
+                choosenLevel = "hard";
+                hibernateSender.readFromHangman(choosenLevel);
+                word=hibernateSender.getWord();
                 triesCount = 10;
                 break;
             default:
